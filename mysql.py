@@ -41,6 +41,7 @@ if do_insert:
             to_insert += [i, 'Mary had a little lamb. '*100]
             i += 1
         cursor.execute(sql, to_insert)
+        connection.commit()
         i += batch_size
     end = time()
     print '%d documents inserted took %.2fs' % (keys, end - start)
