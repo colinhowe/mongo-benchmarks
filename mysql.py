@@ -10,7 +10,7 @@ parser.add_argument('--host',
                     help='Host to connect to')
 parser.add_argument('--gets', type=int,
                     help='Number of gets to perform')
-parser.add_argument('--focus', type=int,
+parser.add_argument('--focus', type=float,
                     help='Percentage to focus reads on')
 parser.add_argument('--do_insert', const=True, default=False,
                     action='store_const',
