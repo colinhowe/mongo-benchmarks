@@ -11,6 +11,9 @@ parser.add_argument('--host',
                     help='Host to connect to')
 parser.add_argument('--gets', type=int,
                     help='Number of gets to perform')
+parser.add_argument('--from_index', type=int,
+                    help='Index to start inserting from - prevents clearing database',
+                    default=0)
 parser.add_argument('--do_insert', const=True, default=False,
                     action='store_const',
                     help='Do inserts')
@@ -23,6 +26,7 @@ args = parser.parse_args()
 host = args.host
 keys = args.keys
 gets = args.gets
+from_index = args.from_index
 do_insert = args.do_insert
 data_table = args.data_table
 
@@ -34,12 +38,13 @@ db = connection.bench
 
 # Add all the keys if desired
 if do_insert:
-    db.drop_collection('docs')
-    db.drop_collection('data')
+    if not from_index:
+        db.drop_collection('docs')
+        db.drop_collection('data')
     docs = db.docs
     docs.create_index([('key', ASCENDING)])
     batch_size = 1000
-    i = 0
+    i = from_index
     last_log = 0
     start = time()
 
