@@ -40,12 +40,14 @@ if do_insert:
     docs.create_index([('key', ASCENDING)])
     batch_size = 1000
     i = 0
+    last_log = 0
     start = time()
 
     if data_table:
         data = db.data
         while i < keys:
-            if i % 10000 == 0:
+            if i - last_log > 10000:
+                last_log = i
                 print '%d/%d inserted' % (i, keys)
             data_objs = []
             for j in range(batch_size):
@@ -65,6 +67,9 @@ if do_insert:
             docs.insert(to_insert, safe=True)
     else:
         while i < keys:
+            if i - last_log > 10000:
+                last_log = i
+                print '%d/%d inserted' % (i, keys)
             to_insert = []
             for j in range(batch_size):
                 to_insert.append({
