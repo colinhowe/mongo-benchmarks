@@ -45,6 +45,8 @@ if do_insert:
     if data_table:
         data = db.data
         while i < keys:
+            if i % 10000 == 0:
+                print '%d/%d inserted' % (i, keys)
             data_objs = []
             for j in range(batch_size):
                 data_objs.append({
@@ -87,6 +89,8 @@ if data_table:
 start = time()
 c = 0
 for i in range(gets):
+    if i % 1000 == 0:
+        print '%d/%d gets' % (i, gets)
     start_key = random.randint(0, keys)
     chunk = random.randint(0, chunks)
     if data_table:
