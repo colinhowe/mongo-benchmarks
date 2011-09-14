@@ -96,8 +96,8 @@ c = 0
 for i in range(gets):
     if i % 1000 == 0:
         print '%d/%d gets' % (i, gets)
-    start_key = random.randint(0, keys)
-    chunk = random.randint(0, chunks)
+    start_key = random.randint(0, keys - 1)
+    chunk = random.randint(0, chunks - 1)
     if data_table:
         results = docs.find({'key': { '$gt': start_key}, 'chunk': chunk}).limit(10)
         ids = [result['data_obj'] for result in results]
