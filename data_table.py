@@ -38,7 +38,7 @@ if do_insert:
     db.drop_collection('data')
     docs = db.docs
     docs.create_index([('key', ASCENDING)])
-    batch_size = 100
+    batch_size = 1000
     i = 0
     start = time()
 
